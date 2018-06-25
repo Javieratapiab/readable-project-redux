@@ -1,4 +1,4 @@
-export const FETCH_ALL_CATEGORIES = 'FETCH_ALL_CATEGORIES';
+import { FETCH_ALL_CATEGORIES } from '../globalActions';
 
 export function fetchAll ({ categories }) {
   return {

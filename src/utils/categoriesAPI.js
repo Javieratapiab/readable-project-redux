@@ -1,6 +1,11 @@
+import { ROOT_PATH, HEADERS } from './constants';
+import axios from 'axios';
+
+axios.defaults.headers.common['Authorization'] = HEADERS
+
 // Get all categories
 export function fetchAll() {
-  const headers = { "Authorization": "whatever-you-want" }
-  return fetch(`http://localhost:3001/categories`, { headers: headers })
-    .then((res) => res.json())
+  return axios.get(`${ROOT_PATH}/categories`)
+    .then((res) => res.data)
 }
+

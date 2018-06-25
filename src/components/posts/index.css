@@ -1,0 +1,39 @@
+/* Post section styles */
+.message-icon {
+  vertical-align: super;
+  color: #F44336;
+}
+
+.post-actions {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+
+.comment-count, .post-votescore {
+  font-size: 16px;
+}
+
+.thumb-up-icon {
+  color: #00695C;
+}
+
+.thumb-down-icon {
+  color: #B71C1C;
+}
+
+.star-icon {
+  font-size: 28px;
+  align-self: normal;
+  color: #00C853;
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.post-votescore {
+  vertical-align: super;
+}
