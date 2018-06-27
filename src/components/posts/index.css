@@ -24,16 +24,10 @@
 
 .star-icon {
   font-size: 28px;
-  align-self: normal;
   color: #00C853;
 }
 
 .post-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-}
-
-.post-votescore {
-  vertical-align: super;
 }
