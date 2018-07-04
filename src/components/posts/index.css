@@ -8,6 +8,7 @@
   display: flex;
   justify-content: space-around;
   align-items: flex-end;
+  background: #eaeaea;
 }
 
 .comment-count, .post-votescore {
@@ -15,16 +16,24 @@
 }
 
 .thumb-up-icon {
-  color: #00695C;
+  color: #5219d2;
 }
 
 .thumb-down-icon {
+  color: #e53935;
+}
+
+.remove-icon {
   color: #B71C1C;
+}
+
+.edit-icon {
+  color: #2E7D32;
 }
 
 .star-icon {
   font-size: 28px;
-  color: #00C853;
+  color: #bba80d;
 }
 
 .post-header {

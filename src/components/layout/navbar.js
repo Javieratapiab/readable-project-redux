@@ -52,7 +52,7 @@ class CategoriesNavbar extends Component {
     return (
       <div className={classes.root}>
         <AppBar position="static">
-          <Toolbar>
+          <Toolbar className='navbar-toolbar'>
             <IconButton
                 className={classes.menuButton}
                 color="inherit"

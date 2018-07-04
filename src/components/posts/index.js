@@ -44,6 +44,7 @@ class PostIndex extends Component  {
     if (!empty(posts)) {
       return posts.allIds.map((postId) => {
         let post = posts.byId[postId]
+        if (post.deleted) return false
         return <PostDetail key={post.id} post={post} />
       })
     }
@@ -79,4 +80,4 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default compose(withStyles(materialStyles),
-               connect(mapStateToProps, mapDispatchToProps))(PostIndex);
+              connect(mapStateToProps, mapDispatchToProps))(PostIndex);

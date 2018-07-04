@@ -11,6 +11,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { newVote } from '../actions';
+import { deletePost } from '../actions';
+import PostDialog from './dialog';
+import { Link } from 'react-router-dom';
 
 // Material UI styles
 const materialStyles = {
@@ -32,9 +35,21 @@ const materialStyles = {
 };
 
 class PostDetail extends Component  {
+  state = {
+    open: false
+  }
+  // Open new post modal
+  showModal() {
+    this.setState({ open: true })
+  }
+
+  // Close new post modal
+  handleClose = () => {
+    this.setState({ open: false })
+  }
+
   render () {
-    const { post, classes, addNewVote } = this.props;
-    console.log('POST PROPS', post)
+    const { post, classes, addNewVote, deletePost } = this.props;
     return (
       <Grid key={post.id}>
         <Card className={classes.card}>
@@ -64,6 +79,13 @@ class PostDetail extends Component  {
               { post.body }
             </Typography>
           </CardContent>
+          <CardActions>
+            <Link to={`/categories/${post.id}`} style={{ textDecoration: 'none' }}>
+              <Button size="small" variant="contained" color="secondary">
+                See details
+              </Button>
+            </Link>
+          </CardActions>
           <CardActions className='post-actions'>
             {/* Comments */}
             <Button size="small">
@@ -84,8 +106,22 @@ class PostDetail extends Component  {
                 <i className="material-icons">thumb_down</i>
               </span>
             </Button>
+            {/* Remove button */}
+            <Button size="small" onClick={() => deletePost(post.id) }>
+              <span className='remove-icon'>
+                <i className="material-icons">remove_circle</i>
+              </span>
+            </Button>
+            {/* Edit button */}
+            <Button size="small" onClick={() => this.showModal() }>
+              <span className='edit-icon'>
+                <i className="material-icons">edit</i>
+              </span>
+            </Button>
           </CardActions>
         </Card>
+        {/* Edit post dialog */}
+        <PostDialog open={this.state.open} handleClose={ this.handleClose } post = { post } />
       </Grid>
     );
   }
@@ -97,7 +133,8 @@ PostDetail.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addNewVote: (id, impression) => dispatch(newVote(id, impression))
+    addNewVote: (id, impression) => dispatch(newVote(id, impression)),
+    deletePost: (id) => dispatch(deletePost(id))
   }
 }
 
