@@ -44,11 +44,13 @@ class PostIndex extends Component  {
   }
 
   renderPosts() {
-    const { posts } = this.props;
+    const { posts, match } = this.props;
     if (!empty(posts)) {
       return posts.allIds.map((postId) => {
         let post = posts.byId[postId]
-        if (post.deleted) return false
+        let postCategory = post.category
+        let categoryUrl = match.params.category
+        if (post.deleted || (categoryUrl && categoryUrl !== postCategory)) return false
         return <PostDetail key={post.id} post={post} />
       })
     }
