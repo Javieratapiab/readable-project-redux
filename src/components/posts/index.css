@@ -1,7 +1,7 @@
 /* Post section styles */
 .message-icon {
   vertical-align: super;
-  color: #F44336;
+  color: grey;
 }
 
 .post-actions {
@@ -16,27 +16,31 @@
 }
 
 .thumb-up-icon {
-  color: #5219d2;
+  color: grey;
 }
 
 .thumb-down-icon {
-  color: #e53935;
+  color: grey;
 }
 
 .remove-icon {
-  color: #B71C1C;
+  color: grey;
 }
 
 .edit-icon {
-  color: #2E7D32;
+  color: grey;
 }
 
 .star-icon {
-  font-size: 28px;
-  color: #bba80d;
+  font-size: 22px;
+  color: #ff3a3a;
 }
 
 .post-header {
   display: flex;
   justify-content: space-between;
+}
+
+.categories-selector {
+  margin-top: 25px;
 }

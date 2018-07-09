@@ -7,6 +7,17 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import registerServiceWorker from './registerServiceWorker';
 import reducer from './reducers';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+const THEME = createMuiTheme({
+  typography: {
+   fontFamily: "Titillium Web, sans-serif",
+   fontSize: 18,
+   fontWeightLight: 300,
+   fontWeightRegular: 400,
+   fontWeightMedium: 500
+  }
+});
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -18,9 +29,11 @@ const store = createStore(
 )
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <MuiThemeProvider theme={THEME}>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </MuiThemeProvider>,
   document.getElementById('root')
 )
 registerServiceWorker();

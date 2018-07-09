@@ -3,7 +3,9 @@ import {
   FETCH_ALL_POSTS,
   POST_VOTE,
   DELETE_POST,
-  EDIT_POST
+  EDIT_POST,
+  CREATE_POST,
+  FETCH_POST_BY_ID
 } from '../globalActions';
 import { mapKeys } from '../../utils/helpers'
 
@@ -36,6 +38,21 @@ export default function (state = {}, action) {
           ...state.byId,
           [action.payload.id]: action.payload
         }
+      }
+    case CREATE_POST:
+      const newPost = { [action.payload.id]: action.payload }
+      const newState = Object.assign({}, state.byId, newPost)
+      return {
+        ...state,
+        allIds: state.allIds.concat(action.payload.id),
+        byId: newState
+      }
+    case FETCH_POST_BY_ID:
+      const currentPost = { [action.payload.id]: action.payload }
+      const setState = Object.assign({}, currentPost)
+      return {
+        allIds: [action.payload.id],
+        byId: setState
       }
     default:
       return state;

@@ -15,5 +15,9 @@
   font-size: 35px;
 }
 .navbar-toolbar {
-  background: black;
+  background: #fa3a3b;
 }
+.main-title {
+  text-align: center
+}
+

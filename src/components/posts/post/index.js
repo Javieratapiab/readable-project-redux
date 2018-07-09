@@ -1,30 +1,42 @@
 import React, { Component } from 'react';
 import Navbar from '../../layout/navbar';
-import { fetchAll } from '../../categories/actions';
+import Posts from '../index';
+import { fetchAllComments } from '../../comments/actions';
 import { connect } from 'react-redux';
-
+import CommentsList from '../../comments/index'
+import Grid from '@material-ui/core/Grid';
 class Post extends Component  {
-  componentDidMount = () => {
-    const { fetchCategories } = this.props;
-    fetchCategories()
+  componentDidMount() {
+    const { fetchComments, match } = this.props
+    fetchComments(match.params.id)
   }
+
   render () {
-    const { categories } = this.props;
     return (
-      <Navbar categories={categories}/>
+      <div>
+        <Navbar />
+        <h2 className='main-title'>Post detail</h2>
+        <Posts {...this.props}/>
+        <Grid container spacing={16}
+              alignItems='center'
+              direction='row'
+              justify='space-around'>
+          <CommentsList comments={this.props.comments}/>
+        </Grid>
+      </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    categories: state.categories
+    comments: state.comments
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchCategories: () => dispatch(fetchAll())
+    fetchComments: (id) => dispatch(fetchAllComments(id))
   }
 }
 

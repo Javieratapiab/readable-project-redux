@@ -7,7 +7,9 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { fetchAll } from './actions';
 import { fetchPostsByCategory } from '../../utils/postsAPI';
-import PostDetail from './detail/index'
+import { fetchPostById } from './actions';
+import PostDetail from './detail/index';
+import FlipMove from "react-flip-move";
 import { empty } from '../../utils/helpers';
 
 // Material UI styles
@@ -28,17 +30,19 @@ const materialStyles = {
     marginBottom: 12,
   },
 };
+
 class PostIndex extends Component  {
   componentDidMount() {
-    const { fetchAllPosts, fetchByCategory, match } = this.props;
+    const { fetchAllPosts, fetchByCategory, match, fetchPost } = this.props;
     if (match.params.category) {
       fetchByCategory(match.params.category)
+    } else if (match.params.id) {
+      fetchPost(match.params.id)
     } else {
-      fetchAllPosts();
+     fetchAllPosts();
     }
   }
 
-  // Render PostDetail component
   renderPosts() {
     const { posts } = this.props;
     if (!empty(posts)) {
@@ -52,12 +56,14 @@ class PostIndex extends Component  {
 
   render () {
     return (
-      <Grid container spacing={16}
-            alignItems='center'
-            direction='row'
-            justify='space-around'>
-        { this.renderPosts() }
-      </Grid>
+        <Grid container spacing={16}
+              alignItems='center'
+              direction='row'
+              justify='space-around'>
+          <FlipMove duration={250} easing="ease-out">
+            { this.renderPosts() }
+          </FlipMove>
+        </Grid>
     );
   }
 }
@@ -75,7 +81,8 @@ const mapStateToProps = (state) => {
 function mapDispatchToProps(dispatch) {
   return {
     fetchAllPosts: () => dispatch(fetchAll()),
-    fetchByCategory: (category) => dispatch(fetchPostsByCategory(category))
+    fetchByCategory: (category) => dispatch(fetchPostsByCategory(category)),
+    fetchPost: (id) => dispatch(fetchPostById(id))
   }
 }
 

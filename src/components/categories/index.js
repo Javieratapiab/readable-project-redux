@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import Navbar from '../layout/navbar';
-import Posts from '../posts/index';
 import Grid from '@material-ui/core/Grid';
-import { fetchAll } from './actions';
-import { connect } from 'react-redux';
+import Button from '@material-ui/core/Button';
+import Posts from '../posts/index';
+import NewPost from '../posts/form/form';
 import './index.css';
 
 class Categories extends Component {
-  state = {
-    open: false
-  }
-
-  componentDidMount = () => {
-    const { fetchCategories } = this.props;
-    fetchCategories()
+  constructor(props) {
+    super(props)
+    this.state = {
+      open: false
+    }
+    this.handleClose = this.handleClose.bind(this)
   }
 
   // Open new post modal
@@ -31,39 +30,29 @@ class Categories extends Component {
   }
 
   render() {
-    const { categories } = this.props;
     return(
       <div>
-        <Navbar categories={categories} />
-        <Grid container spacing={24}>
-          <Grid item xs={7} align="right">
-            <h2>Posts dashboard</h2>
+        <Navbar />
+        <Grid container spacing={16}
+              alignItems='center'
+              direction='row'
+              justify='space-around'>
+          <Grid item xs={8}>
+            <h2 className='main-title'>Posts dashboard</h2>
           </Grid>
-          {/* <Grid item xs={5} align="center">
-            <div className="valign-center">
-              <Button size="medium" onClick={() => this.showModal()}>
-                <span>NEW</span>
-                <i className="material-icons add-post-icon">add_circle</i>
-              </Button>
-            </div>
-          </Grid> */}
+          <Grid item xs={4}>
+            <Button variant="outlined"
+                    onClick={() => this.showModal()}
+                    className='new-post-button'
+                    style = {{ color: '#ff3a3a', fontWeight: 'bold' }}>New post
+            </Button>
+          </Grid>
         </Grid>
+        <NewPost open={this.state.open}  handleClose={this.handleClose} />
         <Posts {...this.props}/>
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    categories: state.categories
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchCategories: () => dispatch(fetchAll())
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Categories);
+export default Categories

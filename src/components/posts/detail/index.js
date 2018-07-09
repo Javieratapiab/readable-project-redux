@@ -19,6 +19,8 @@ import { Link } from 'react-router-dom';
 const materialStyles = {
   card: {
     minWidth: 275,
+    borderRadius: '20px',
+    margin: '20px'
   },
   bullet: {
     display: 'inline-block',
@@ -79,9 +81,9 @@ class PostDetail extends Component  {
               { post.body }
             </Typography>
           </CardContent>
-          <CardActions>
+          <CardActions style={{justifyContent: 'center'}}>
             <Link to={`/categories/${post.id}`} style={{ textDecoration: 'none' }}>
-              <Button size="small" variant="contained" color="secondary">
+              <Button size="small" variant="contained" style= {{ background: '#1fb053', color: 'white', fontWeight: 'bold'}}>
                 See details
               </Button>
             </Link>

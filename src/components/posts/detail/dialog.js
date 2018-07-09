@@ -4,7 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { editPost } from '../actions';
 import { connect } from 'react-redux';
@@ -57,11 +56,8 @@ class PostDialog extends Component {
         aria-labelledby="form-dialog-title"
         >
         <form onSubmit={this.handleSubmit}>
-          <DialogTitle id="form-dialog-title">Edit post</DialogTitle>
+          <DialogTitle id="form-dialog-title">Edit your post post</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              Change title and body of your post
-            </DialogContentText>
               <TextField
                 autoFocus
                 margin="dense"
@@ -83,7 +79,7 @@ class PostDialog extends Component {
                 fullWidth
               />
           </DialogContent>
-          <DialogActions>
+          <DialogActions style= {{ justifyContent: 'center' }}>
             <Button onClick={ handleClose } color="primary">
               Cancel
             </Button>

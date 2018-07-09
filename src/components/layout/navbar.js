@@ -12,6 +12,7 @@ import { capitalize } from '../../utils/helpers';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { fetchAll } from '../categories/actions';
 import { fetchPostsByCategory } from '../../utils/postsAPI';
 
 const materialStyles = {
@@ -31,10 +32,14 @@ class CategoriesNavbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: [],
       anchorEl: null,
     };
   };
+
+  componentDidMount = () => {
+    const { fetchCategories } = this.props;
+    fetchCategories()
+  }
 
   handleMenu = event => {
     this.setState({ anchorEl: event.currentTarget });
@@ -45,7 +50,7 @@ class CategoriesNavbar extends Component {
   };
 
   render() {
-    const { classes, categories, fetchPosts } = this.props;
+    const { classes, fetchPosts, categories } = this.props;
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
@@ -105,10 +110,17 @@ CategoriesNavbar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-function mapDispatchToProps (dispatch) {
+const mapStateToProps = (state) => {
   return {
-    fetchPosts: (data) => dispatch(fetchPostsByCategory(data))
+    categories: state.categories
   }
 }
 
-export default compose(withStyles(materialStyles), connect(null, mapDispatchToProps))(CategoriesNavbar);
+function mapDispatchToProps (dispatch) {
+  return {
+    fetchPosts: (data) => dispatch(fetchPostsByCategory(data)),
+    fetchCategories: () => dispatch(fetchAll())
+  }
+}
+
+export default compose(withStyles(materialStyles), connect(mapStateToProps, mapDispatchToProps))(CategoriesNavbar);
