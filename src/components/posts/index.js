@@ -43,10 +43,11 @@ class PostIndex extends Component  {
   }
 
   renderPosts() {
-    const { posts, match } = this.props;
+    const { posts, match, sort } = this.props;
     if (!empty(posts)) {
-      return posts.allIds.map((postId) => {
-        let post = posts.byId[postId]
+      const ordered = sort !== '' ? this.orderPosts(sort, posts) : posts
+      return ordered.allIds.map((postId) => {
+        let post = ordered.byId[postId]
         let postCategory = post.category
         let categoryUrl = match.params.category
         if (post.deleted || (categoryUrl && categoryUrl !== postCategory)) return false
@@ -54,6 +55,28 @@ class PostIndex extends Component  {
       })
     }
   }
+
+  // orderPosts(sort, posts) {
+  //   const allIds = []
+  //   const byId = {}
+  //   let firstLoop = true
+  //   if (sort === 'Date') {
+  //     posts.allIds.map((postId) => {
+  //       if (firstLoop) {
+  //         allIds.push(postId)
+  //         byId[postId] = posts.byId[postId]
+  //         firstLoop = false
+  //       } else {
+  //       }
+  //     })
+  //     // debugger
+  //     // for (const key of Object.keys(posts.byId)) {
+  //     // console.log(key, posts.byId[key]);
+  //     // }
+  //   // By score
+  //   } else {
+  //   }
+  // }
 
   render () {
     return (
