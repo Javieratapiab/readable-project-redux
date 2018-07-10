@@ -7,7 +7,6 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { fetchAll } from './actions';
 import { fetchPostsByCategory } from '../../utils/postsAPI';
-import { fetchPostById } from './actions';
 import PostDetail from './detail/index';
 import FlipMove from "react-flip-move";
 import { empty } from '../../utils/helpers';
@@ -33,11 +32,11 @@ const materialStyles = {
 
 class PostIndex extends Component  {
   componentDidMount() {
-    const { fetchAllPosts, fetchByCategory, match, fetchPost } = this.props;
+    const { fetchAllPosts, fetchByCategory, match } = this.props;
     if (match.params.category) {
       fetchByCategory(match.params.category)
     } else if (match.params.id) {
-      fetchPost(match.params.id)
+      return
     } else {
      fetchAllPosts();
     }
@@ -51,7 +50,7 @@ class PostIndex extends Component  {
         let postCategory = post.category
         let categoryUrl = match.params.category
         if (post.deleted || (categoryUrl && categoryUrl !== postCategory)) return false
-        return <PostDetail key={post.id} post={post} />
+        return <PostDetail key={postId} post={post} />
       })
     }
   }
@@ -84,7 +83,6 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchAllPosts: () => dispatch(fetchAll()),
     fetchByCategory: (category) => dispatch(fetchPostsByCategory(category)),
-    fetchPost: (id) => dispatch(fetchPostById(id))
   }
 }
 

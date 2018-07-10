@@ -10,3 +10,7 @@ export const CREATE_POST = 'CREATE_POST';
 export const FETCH_POST_BY_ID = 'FETCH_POST_BY_ID';
 // Comments
 export const FETCH_ALL_COMMENTS = 'FETCH_ALL_COMMENTS';
+export const CREATE_COMMENT = 'CREATE_COMMENT';
+export const COMMENT_VOTE = 'COMMENT_VOTE';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const EDIT_COMMENT = 'EDIT_COMMENT';

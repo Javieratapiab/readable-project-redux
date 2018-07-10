@@ -5,28 +5,23 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { editPost } from '../actions';
 import { connect } from 'react-redux';
+import { createComment } from '../actions';
+import '../index.css';
 
-class PostDialog extends Component {
+class NewComment extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      title: '',
-      body: ''
+      body: '',
+      author: '',
+      parentId: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  componentDidMount = () => {
-    const { post } = this.props
-    this.setState({
-      title: post.title,
-      body: post.body
-    });
-  }
-
+  // Handle title input
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -34,10 +29,12 @@ class PostDialog extends Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault()
-    const { editAction, post, handleClose } = this.props
-    editAction(post.id, this.state)
-    handleClose()
+    e.preventDefault();
+    const { create, handleClose, postID } = this.props
+    this.setState({ parentId: postID }, function() {
+      create(this.state)
+      handleClose()
+    });
   }
 
   render() {
@@ -49,30 +46,28 @@ class PostDialog extends Component {
         aria-labelledby="form-dialog-title"
         >
         <form onSubmit={this.handleSubmit}>
-          <DialogTitle id="form-dialog-title">Edit your post post</DialogTitle>
+          <DialogTitle id="form-dialog-title">Create a new comment here! :)</DialogTitle>
           <DialogContent>
-              <TextField
-                autoFocus
-                margin="dense"
-                id="post-title"
-                label="Post title"
-                name='title'
-                value={this.state.title}
-                onChange={this.handleChange}
-                type="text"
-                fullWidth
-              />
-              <TextField
-                autoFocus
-                margin="dense"
-                id="post-body"
-                label="Post body"
-                name='body'
-                value={this.state.body}
-                type="text"
-                onChange={this.handleChange}
-                fullWidth
-              />
+            <TextField
+              autoFocus
+              margin="dense"
+              name="author"
+              label="Author"
+              value={this.state.author}
+              type="text"
+              onChange={this.handleChange}
+              fullWidth
+            />
+            <TextField
+              autoFocus
+              margin='dense'
+              name='body'
+              label='Body'
+              value={this.state.body}
+              onChange={this.handleChange}
+              type='text'
+              fullWidth
+            />
           </DialogContent>
           <DialogActions style= {{ justifyContent: 'center' }}>
             <Button onClick={ handleClose } color="primary">
@@ -90,8 +85,8 @@ class PostDialog extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    editAction: (id, params) => dispatch(editPost(id, params))
+    create: (params) => dispatch(createComment(params))
   }
 }
 
-export default connect(null, mapDispatchToProps)(PostDialog);
+export default connect(null, mapDispatchToProps)(NewComment);

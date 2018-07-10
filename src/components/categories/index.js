@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 import Posts from '../posts/index';
 import NewPost from '../posts/form/form';
 import './index.css';
-
 class Categories extends Component {
   constructor(props) {
     super(props)
