@@ -3,9 +3,17 @@
 This project is built in React using Redux for state management. For a better experience, it uses
 React components that implement Google's Material Desing (Material - UI).
 
+## Tools
+
+- React.
+- Redux.
+- Axios.
+- React-router.
+- Material UI.
+
 ## DEMO
 
-:fire: Heroku URL: [Readable project] (https://readable-udacity-nanodegree.herokuapp.com/)
+:fire: Heroku URL: [Readable project](https://readable-udacity-nanodegree.herokuapp.com/)
 
 ## Installation
 
