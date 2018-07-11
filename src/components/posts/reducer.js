@@ -5,16 +5,17 @@ import {
   DELETE_POST,
   EDIT_POST,
   CREATE_POST,
-  FETCH_POST_BY_ID
+  FETCH_POST_BY_ID,
+  // REORDER_POSTS
 } from '../globalActions';
 import { mapKeys } from '../../utils/helpers'
 
 export default function (state = {}, action) {
   switch (action.type) {
     case FETCH_ALL_POSTS:
-      return mapKeys(action, state)
+      return mapKeys(action.payload, state)
     case FETCH_CATEGORY_POSTS:
-      return mapKeys(action, state)
+      return mapKeys(action.payload, state)
     case POST_VOTE:
       return {
         ...state,
@@ -54,6 +55,8 @@ export default function (state = {}, action) {
         allIds: [action.payload.id],
         byId: setState
       }
+    // case REORDER_POSTS:
+    //   return action.payload;
     default:
       return state;
   }
