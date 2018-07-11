@@ -1,28 +1,34 @@
 {
-  "name": "readable-project-redux",
-  "version": "0.1.0",
-  "private": true,
+  "name": "reddit-clone-server",
+  "version": "0.0.1",
+  "description": "A server for the Udacity Reddit Clone project for ReactND",
+  "main": "index.js",
+  "keywords": [
+    "udacity",
+    "redux",
+    "readable",
+    "react"
+  ],
+  "author": "David Harris",
+  "license": "ISC",
   "dependencies": {
-    "@material-ui/core": "^1.3.1",
-    "@material-ui/icons": "^1.1.0",
-    "axios": "^0.18.0",
-    "moment": "^2.22.2",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-flip-move": "^3.0.2",
-    "react-redux": "^5.0.7",
-    "react-router-dom": "^4.3.1",
-    "redux": "^4.0.0",
-    "redux-thunk": "^2.3.0"
-  },
-  "devDependencies": {
-    "react-scripts": "1.1.4"
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.2",
+    "clone": "^2.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "node server/server.js",
+    "heroku-postbuild": "cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
-  "proxy": "https://localhost:5001/"
+  "cacheDirectories": [
+    "node_modules",
+    "react-ui/node_modules"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mars/heroku-cra-node.git"
+  },
+  "devDependencies": {}
 }

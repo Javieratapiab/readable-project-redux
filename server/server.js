@@ -11,7 +11,7 @@ const path = require('path');
 
 const app = express()
 
-app.use(express.static(path.resolve(__dirname, '../src/build')));
+app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 app.use(cors())
 
 
