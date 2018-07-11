@@ -5,7 +5,7 @@ React components that implement Google's Material Desing (Material - UI).
 
 ## DEMO
 
-:fire: Firebase URL: [Readable project] <!-- (https://github.com/facebookincubator/create-react-app) -->
+:fire: Heroku URL: [Readable project] (https://readable-udacity-nanodegree.herokuapp.com/)
 
 ## Installation
 
@@ -19,7 +19,7 @@ There are the first steps to get a launched project:
 To install and start the API server, run the following commands in this directory:
 
 * `npm install`
-* `node server`
+* `node server/server.js`
 
 ## Using The Server
 ### Include An Authorization Header
