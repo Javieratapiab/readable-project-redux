@@ -1,0 +1,23 @@
+.valign-center {
+  height: 100%;
+  display: inline-flex;
+  vertical-align: middle;
+  align-items: center;
+}
+
+.add-post-button {
+  background: #FFE57F;
+  font-weight: bold;
+}
+
+.add-post-icon {
+  color: #C51162;
+  font-size: 35px;
+}
+.navbar-toolbar {
+  background: #fa3a3b;
+}
+.main-title {
+  text-align: center
+}
+

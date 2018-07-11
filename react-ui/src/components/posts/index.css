@@ -1,0 +1,46 @@
+/* Post section styles */
+.message-icon {
+  vertical-align: super;
+  color: grey;
+}
+
+.post-actions {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  background: #eaeaea;
+}
+
+.comment-count, .post-votescore {
+  font-size: 16px;
+}
+
+.thumb-up-icon {
+  color: grey;
+}
+
+.thumb-down-icon {
+  color: grey;
+}
+
+.remove-icon {
+  color: grey;
+}
+
+.edit-icon {
+  color: grey;
+}
+
+.star-icon {
+  font-size: 22px;
+  color: #ff3a3a;
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.categories-selector {
+  margin-top: 25px;
+}
