@@ -4,17 +4,14 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Posts from '../posts/index';
 import NewPost from '../posts/form/form';
-import NativeSelect from '@material-ui/core/NativeSelect';
 import './index.css';
 class Categories extends Component {
   constructor(props) {
     super(props)
     this.state = {
       open: false,
-      sortBy: ''
     }
     this.handleClose = this.handleClose.bind(this)
-    this.handleChange = this.handleChange.bind(this)
   }
 
   showModal() {
@@ -35,16 +32,6 @@ class Categories extends Component {
     });
   }
 
-  renderSorts() {
-    const sortOptions = [
-      'Date',
-      'Score',
-    ]
-    return sortOptions.map((opt) => {
-      return <option value={opt} key={opt}>{opt}</option>
-    })
-  }
-
   render() {
     return(
       <div>
@@ -63,21 +50,9 @@ class Categories extends Component {
                     style = {{ color: '#ff3a3a', fontWeight: 'bold' }}>New post
             </Button>
           </Grid>
-          <Grid item xs={4}>
-            <NativeSelect
-                className='categories-selector'
-                value={this.state.sortBy}
-                name='sortBy'
-                onChange={this.handleChange}
-                fullWidth
-              >
-                <option value="" disabled>Sort by: </option>
-                { this.renderSorts() }
-            </NativeSelect>
-          </Grid>
         </Grid>
         <NewPost open={this.state.open}  handleClose={this.handleClose} />
-        <Posts {...this.props} sort={this.state.sortBy} />
+        <Posts {...this.props} />
       </div>
     )
   }

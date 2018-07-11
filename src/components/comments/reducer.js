@@ -9,7 +9,7 @@ import { mapKeys} from '../../utils/helpers'
 export default function (state = {}, action) {
   switch (action.type) {
     case FETCH_ALL_COMMENTS:
-      return mapKeys(action, state)
+      return mapKeys(action.payload, state)
     case CREATE_COMMENT:
       const newComment = { [action.payload.id]: action.payload }
       const newState = Object.assign({}, state.byId, newComment)

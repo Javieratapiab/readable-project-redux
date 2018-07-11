@@ -6,10 +6,13 @@ import Grid from '@material-ui/core/Grid';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { fetchAll } from './actions';
+import { reorder } from './actions';
+import NativeSelect from '@material-ui/core/NativeSelect';
 import { fetchPostsByCategory } from '../../utils/postsAPI';
 import PostDetail from './detail/index';
 import FlipMove from "react-flip-move";
 import { empty } from '../../utils/helpers';
+import { mapKeys } from '../../utils/helpers';
 
 // Material UI styles
 const materialStyles = {
@@ -31,7 +34,7 @@ const materialStyles = {
 };
 
 class PostIndex extends Component  {
-  componentDidMount() {
+  componentWillMount() {
     const { fetchAllPosts, fetchByCategory, match } = this.props;
     if (match.params.category) {
       fetchByCategory(match.params.category)
@@ -56,30 +59,40 @@ class PostIndex extends Component  {
     }
   }
 
-  // orderPosts(sort, posts) {
-  //   const allIds = []
-  //   const byId = {}
-  //   let firstLoop = true
-  //   if (sort === 'Date') {
-  //     posts.allIds.map((postId) => {
-  //       if (firstLoop) {
-  //         allIds.push(postId)
-  //         byId[postId] = posts.byId[postId]
-  //         firstLoop = false
-  //       } else {
-  //       }
-  //     })
-  //     // debugger
-  //     // for (const key of Object.keys(posts.byId)) {
-  //     // console.log(key, posts.byId[key]);
-  //     // }
-  //   // By score
-  //   } else {
-  //   }
-  // }
+  orderPosts(sort, posts) {
+    // Order posts by date
+    if (sort === 'date') {
+      const orderByDate = Object.values(posts.byId).reverse((a,b) => {
+        return new Date(a.timestamp) - new Date(b.timestamp);
+      })
+      return (mapKeys(orderByDate, {}))
+    // Order posts by score
+    } else if (sort === 'score') {
+      const orderByScore = Object.values(posts.byId).sort((b,a) => {
+        return a.voteScore - b.voteScore
+      })
+      return (mapKeys(orderByScore, {}))
+    }
+  }
 
   render () {
+    const { sortPosts } = this.props;
     return (
+      <div>
+         <Grid container item spacing={0} justify="center" >
+            <Grid item xs={4}>
+              <NativeSelect
+                    className='categories-selector'
+                    name='sortBy'
+                    onChange={event => sortPosts(event.target.value)}
+                    fullWidth
+                >
+                  <option value="" disabled>Sort by: </option>
+                  <option value='date' key='date'>Date</option>
+                  <option value='score' key='score'>Score</option>
+              </NativeSelect>
+            </Grid>
+        </Grid>
         <Grid container spacing={16}
               alignItems='center'
               direction='row'
@@ -88,6 +101,7 @@ class PostIndex extends Component  {
             { this.renderPosts() }
           </FlipMove>
         </Grid>
+      </div>
     );
   }
 }
@@ -98,12 +112,14 @@ PostIndex.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    posts: state.posts
+    posts: state.posts,
+    sort: state.postsSorted
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    sortPosts: (sortBy) => dispatch(reorder(sortBy)),
     fetchAllPosts: () => dispatch(fetchAll()),
     fetchByCategory: (category) => dispatch(fetchPostsByCategory(category)),
   }

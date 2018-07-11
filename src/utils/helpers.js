@@ -21,11 +21,11 @@ export function empty(obj) {
 
 export function mapKeys(action, state) {
   return Object.assign({}, state, {
-    byId: action.payload.reduce((postObj, post) => {
+    byId: action.reduce((postObj, post) => {
       postObj[post.id] = postObj[post.id] || post;
       return postObj;
     }, {}),
-    allIds: action.payload.map(post => post.id)
+    allIds: action.map(post => post.id)
   })
 }
 

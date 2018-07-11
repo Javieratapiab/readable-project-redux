@@ -6,7 +6,8 @@ import { FETCH_ALL_POSTS,
         DELETE_POST,
         EDIT_POST,
         CREATE_POST,
-        FETCH_POST_BY_ID
+        FETCH_POST_BY_ID,
+        POSTS_ORDER_BY
       } from '../globalActions';
 
 axios.defaults.headers.common['Authorization'] = HEADERS
@@ -63,6 +64,13 @@ export function fetchPostById(id) {
     axios.get(`${ROOT_PATH}/posts/${id}`)
     .then((res) => dispatch(fetchCurrentPost(res.data)))
     .catch((err) => console.log(err))
+  }
+}
+
+// Reorder posts
+export function reorder(sortBy) {
+  return dispatch => {
+    dispatch({ type: POSTS_ORDER_BY, payload: sortBy })
   }
 }
 
