@@ -12,7 +12,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 const THEME = createMuiTheme({
   typography: {
    fontFamily: "Titillium Web, sans-serif",
-   fontSize: 18,
+   fontSize: 16,
    fontWeightLight: 300,
    fontWeightRegular: 400,
    fontWeightMedium: 500

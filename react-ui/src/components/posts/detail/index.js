@@ -37,21 +37,24 @@ const materialStyles = {
 };
 
 class PostDetail extends Component  {
-  state = {
-    open: false
-  }
-  // Open new post modal
-  showModal() {
-    this.setState({ open: true })
+  constructor(props) {
+    super(props)
+    this.state = {
+      open: false,
+    }
+    this.toggleModal = this.toggleModal.bind(this)
   }
 
-  // Close new post modal
-  handleClose = () => {
-    this.setState({ open: false })
+  toggleModal = () => {
+    this.setState(prevState => {
+      return {
+        open: !prevState.open
+      }
+    })
   }
 
   render () {
-    const { post, classes, addNewVote, deletePost } = this.props;
+    const { post, classes, addNewVote, deletePost, commentsCount } = this.props;
     return (
       <Grid key={post.id}>
         <Card className={classes.card}>
@@ -81,8 +84,9 @@ class PostDetail extends Component  {
               { post.body }
             </Typography>
           </CardContent>
+          {/* TODO: THIS SHOULD BE ANOTHER COMPONENT */}
           <CardActions style={{justifyContent: 'center'}}>
-            <Link to={`/categories/${post.id}`} style={{ textDecoration: 'none' }}>
+            <Link to={`/${post.category}/${post.id}`} style={{ textDecoration: 'none' }}>
               <Button size="small" variant="contained" style= {{ background: '#1fb053', color: 'white', fontWeight: 'bold'}}>
                 See details
               </Button>
@@ -91,7 +95,7 @@ class PostDetail extends Component  {
           <CardActions className='post-actions'>
             {/* Comments */}
             <Button size="small">
-              <span className='comment-count'>{ post.commentCount }</span>
+              <span className='comment-count'>{commentsCount || 0 }</span>
               <span className='message-icon'>
                 <i className="material-icons">message</i>
               </span>
@@ -115,7 +119,7 @@ class PostDetail extends Component  {
               </span>
             </Button>
             {/* Edit button */}
-            <Button size="small" onClick={() => this.showModal() }>
+            <Button size="small" onClick={() => this.toggleModal() }>
               <span className='edit-icon'>
                 <i className="material-icons">edit</i>
               </span>
@@ -123,7 +127,7 @@ class PostDetail extends Component  {
           </CardActions>
         </Card>
         {/* Edit post dialog */}
-        <PostDialog open={this.state.open} handleClose={ this.handleClose } post = { post } />
+        <PostDialog open={this.state.open} toggleModal={ this.toggleModal } post = { post } />
       </Grid>
     );
   }
@@ -140,4 +144,5 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default compose(withStyles(materialStyles), connect(null, mapDispatchToProps))(PostDetail);
+export default compose(withStyles(materialStyles),
+               connect(null, mapDispatchToProps))(PostDetail);

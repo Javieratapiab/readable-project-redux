@@ -2,7 +2,7 @@ import { FETCH_ALL_COMMENTS,
          CREATE_COMMENT,
          COMMENT_VOTE,
          DELETE_COMMENT,
-         EDIT_COMMENT
+         EDIT_COMMENT,
         } from '../globalActions';
 import { ROOT_PATH, HEADERS } from '../../utils/constants';
 import { generateUUID } from '../../utils/helpers';

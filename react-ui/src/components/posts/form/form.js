@@ -11,6 +11,7 @@ import { createPost } from '../actions';
 import { connect } from 'react-redux';
 import '../index.css';
 
+// TODO: add form validations
 class NewPost extends Component {
   constructor(props) {
     super(props)
@@ -33,9 +34,9 @@ class NewPost extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { createPost, handleClose } = this.props
+    const { createPost, toggleModal } = this.props
     createPost(this.state)
-    handleClose()
+    toggleModal()
   }
 
   renderCategoriesOptions() {
@@ -47,15 +48,15 @@ class NewPost extends Component {
   }
 
   render() {
-    const { open, handleClose } = this.props;
+    const { open, toggleModal } = this.props;
     return (
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={toggleModal}
         aria-labelledby="form-dialog-title"
         >
         <form onSubmit={this.handleSubmit}>
-          <DialogTitle id="form-dialog-title">Create a new post here! :)</DialogTitle>
+          <DialogTitle id="form-dialog-title">Create a new post here</DialogTitle>
           <DialogContent>
             <TextField
               autoFocus
@@ -99,7 +100,7 @@ class NewPost extends Component {
             </NativeSelect>
           </DialogContent>
           <DialogActions style= {{ justifyContent: 'center' }}>
-            <Button onClick={ handleClose } color="primary">
+            <Button onClick={ toggleModal } color="primary">
               Cancel
             </Button>
             <Button type='submit' value='Submit' color="primary">

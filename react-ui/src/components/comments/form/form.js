@@ -30,23 +30,23 @@ class NewComment extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { create, handleClose, postID } = this.props
+    const { create, toggleModal, postID } = this.props
     this.setState({ parentId: postID }, function() {
       create(this.state)
-      handleClose()
+      toggleModal()
     });
   }
 
   render() {
-    const { open, handleClose } = this.props;
+    const { open, toggleModal } = this.props;
     return (
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={toggleModal}
         aria-labelledby="form-dialog-title"
         >
         <form onSubmit={this.handleSubmit}>
-          <DialogTitle id="form-dialog-title">Create a new comment here! :)</DialogTitle>
+          <DialogTitle id="form-dialog-title">Create a new comment here</DialogTitle>
           <DialogContent>
             <TextField
               autoFocus
@@ -70,7 +70,7 @@ class NewComment extends Component {
             />
           </DialogContent>
           <DialogActions style= {{ justifyContent: 'center' }}>
-            <Button onClick={ handleClose } color="primary">
+            <Button onClick={ toggleModal } color="primary">
               Cancel
             </Button>
             <Button type='submit' value='Submit' color="primary">

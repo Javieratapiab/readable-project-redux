@@ -7,7 +7,7 @@ import { FETCH_ALL_POSTS,
         EDIT_POST,
         CREATE_POST,
         FETCH_POST_BY_ID,
-        POSTS_ORDER_BY
+        POSTS_ORDER_BY,
       } from '../globalActions';
 
 axios.defaults.headers.common['Authorization'] = HEADERS

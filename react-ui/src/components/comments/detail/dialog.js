@@ -33,17 +33,17 @@ class EditDialog extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    const { editAction, comment, handleClose } = this.props
+    const { editAction, comment, toggleModal } = this.props
     editAction(comment.id, this.state)
-    handleClose()
+    toggleModal()
   }
 
   render() {
-    const { open, handleClose } = this.props;
+    const { open, toggleModal } = this.props;
     return (
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={toggleModal}
         aria-labelledby="form-dialog-title"
         >
         <form onSubmit={this.handleSubmit}>
@@ -62,7 +62,7 @@ class EditDialog extends Component {
               />
           </DialogContent>
           <DialogActions style= {{ justifyContent: 'center' }}>
-            <Button onClick={ handleClose } color="primary">
+            <Button onClick={ toggleModal } color="primary">
               Cancel
             </Button>
             <Button type='submit' value='Submit' color="primary">

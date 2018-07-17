@@ -10,15 +10,14 @@ import NotFound from '../../../NotFound';
 import { empty } from '../../../utils/helpers';
 
 class Post extends Component  {
-
-  componentWillMount() {
-    const { fetchComments, fetchPost, match } = this.props
+  componentDidMount() {
+    const { fetchComments, fetchPost, match} = this.props
     fetchComments(match.params.id)
     fetchPost(match.params.id)
   }
 
   renderContent = () => {
-    const { post } = this.props;
+    const { post } = this.props
     if (!empty(post)) {
       let postID = post.allIds[0];
       let postObj = post.byId[postID];

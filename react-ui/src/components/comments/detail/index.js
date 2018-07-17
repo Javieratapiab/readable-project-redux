@@ -21,9 +21,8 @@ const materialStyles = {
   },
   card: {
     minWidth: 275,
-    borderRadius: '20px',
     margin: '20px',
-    background: '#deff80'
+    background: '#ffe57f'
   },
   bullet: {
     display: 'inline-block',
@@ -42,17 +41,20 @@ const materialStyles = {
 };
 
 class CommentDetail extends Component  {
-  state = {
-    open: false
-  }
-  // Open new post modal
-  showModal() {
-    this.setState({ open: true })
+  constructor(props) {
+    super(props)
+    this.state = {
+      open: false
+    }
+    this.toggleModal = this.toggleModal.bind(this)
   }
 
-  // Close new post modal
-  handleClose = () => {
-    this.setState({ open: false })
+  toggleModal = () => {
+    this.setState(prevState => {
+      return {
+        open: !prevState.open
+      }
+    })
   }
 
   render () {
@@ -76,6 +78,7 @@ class CommentDetail extends Component  {
           Author: { comment.author }
         </Typography>
       </CardContent>
+      {/* TODO: This should be another component */}
         <CardActions className='post-actions'>
           {/* Thumbs up */}
           <Button size="small" onClick={() => newVote(comment.id, 'upVote') }>
@@ -96,14 +99,16 @@ class CommentDetail extends Component  {
             </span>
           </Button>
           {/* Edit button */}
-          <Button size="small" onClick={() => this.showModal() } >
+          <Button size="small" onClick={() => this.toggleModal() } >
             <span className='edit-icon'>
               <i className="material-icons">edit</i>
             </span>
           </Button>
         </CardActions>
         {/* Edit post dialog */}
-        <EditDialog open={this.state.open} handleClose={ this.handleClose } comment = { comment } />
+        <EditDialog open={this.state.open}
+                    toggleModal={ this.toggleModal }
+                    comment = { comment } />
       </Card>
     );
   }
@@ -120,4 +125,5 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default compose(withStyles(materialStyles), connect(null, mapDispatchToProps))(CommentDetail);
+export default compose(withStyles(materialStyles),
+               connect(null, mapDispatchToProps))(CommentDetail);

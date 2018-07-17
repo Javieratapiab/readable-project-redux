@@ -34,9 +34,9 @@ const materialStyles = {
 };
 
 class PostIndex extends Component  {
-  componentWillMount() {
+  componentDidMount() {
     const { fetchAllPosts, fetchByCategory, match } = this.props;
-    if (match.params.category) {
+    if (match.params.category && !match.params.id) {
       fetchByCategory(match.params.category)
     } else if (match.params.id) {
       return
@@ -46,27 +46,44 @@ class PostIndex extends Component  {
   }
 
   renderPosts() {
-    const { posts, match, sort } = this.props;
+    const { posts, match, sort, comments } = this.props;
     if (!empty(posts)) {
       const ordered = sort !== '' ? this.orderPosts(sort, posts) : posts
       return ordered.allIds.map((postId) => {
         let post = ordered.byId[postId]
         let postCategory = post.category
         let categoryUrl = match.params.category
+        let commentsCount = this.setCommentsCount(comments)
         if (post.deleted || (categoryUrl && categoryUrl !== postCategory)) return false
-        return <PostDetail key={postId} post={post} />
+        return <PostDetail key={postId} post={post} commentsCount={commentsCount}/>
       })
     }
   }
 
+  setCommentsCount(comments) {
+    if (!empty(comments)) {
+      let total = 0
+      comments.allIds.map((commentId) => {
+        let comment = comments.byId[commentId]
+        if (comment.deleted) return false
+        return total += 1
+      })
+      return total
+    }
+  }
+
+  /* TODO: SORTING FROM REDUCER
+   Sorting can be done from the reducers for the following benefits:
+    - reduced amount of computations performed on the component layer,
+    - the feature can be exported to other components if required,
+    - clean separation of concerns,
+  Additionally, sorting order can be persisted with the use of a library such as Redux Persist. */
   orderPosts(sort, posts) {
-    // Order posts by date
     if (sort === 'date') {
       const orderByDate = Object.values(posts.byId).reverse((a,b) => {
         return new Date(a.timestamp) - new Date(b.timestamp);
       })
       return (mapKeys(orderByDate, {}))
-    // Order posts by score
     } else if (sort === 'score') {
       const orderByScore = Object.values(posts.byId).sort((b,a) => {
         return a.voteScore - b.voteScore

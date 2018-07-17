@@ -6,11 +6,16 @@ import {
   EDIT_POST,
   CREATE_POST,
   FETCH_POST_BY_ID,
-  // REORDER_POSTS
 } from '../globalActions';
 import { mapKeys } from '../../utils/helpers'
 
-export default function (state = {}, action) {
+// Initalize variables
+let initalState = {}
+let newPost = {}
+let newState = {}
+let currentPost = {}
+
+export default function (state = initalState, action) {
   switch (action.type) {
     case FETCH_ALL_POSTS:
       return mapKeys(action.payload, state)
@@ -41,22 +46,20 @@ export default function (state = {}, action) {
         }
       }
     case CREATE_POST:
-      const newPost = { [action.payload.id]: action.payload }
-      const newState = Object.assign({}, state.byId, newPost)
+      newPost = { [action.payload.id]: action.payload }
+      newState = Object.assign({}, state.byId, newPost)
       return {
         ...state,
         allIds: state.allIds.concat(action.payload.id),
         byId: newState
       }
     case FETCH_POST_BY_ID:
-      const currentPost = { [action.payload.id]: action.payload }
-      const setState = Object.assign({}, currentPost)
+      currentPost = { [action.payload.id]: action.payload }
+      newState = Object.assign({}, currentPost)
       return {
         allIds: [action.payload.id],
-        byId: setState
+        byId: newState
       }
-    // case REORDER_POSTS:
-    //   return action.payload;
     default:
       return state;
   }

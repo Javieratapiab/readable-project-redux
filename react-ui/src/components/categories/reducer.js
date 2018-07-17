@@ -1,6 +1,9 @@
 import { FETCH_ALL_CATEGORIES } from '../globalActions';
 
-export default function (state = [], action) {
+// Iniialize variables
+let initialState = []
+
+export default function (state = initialState, action) {
   switch (action.type) {
     case FETCH_ALL_CATEGORIES:
       return action.payload.categories;

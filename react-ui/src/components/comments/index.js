@@ -24,19 +24,15 @@ class CommentsList extends Component {
     this.state = {
       open: false
     }
-    this.handleClose = this.handleClose.bind(this)
+    this.toggleModal = this.toggleModal.bind(this)
   }
 
-  showModal() {
-    this.setState(() => ({
-      open: true
-    }))
-  }
-
-  handleClose() {
-    this.setState(() => ({
-      open: false
-    }))
+  toggleModal = () => {
+    this.setState(prevState => {
+      return {
+        open: !prevState.open
+      }
+    })
   }
 
   renderComment() {
@@ -57,7 +53,7 @@ class CommentsList extends Component {
         <h2 className='main-title'>Comments</h2>
           <Grid>
               <Button variant="outlined"
-                      onClick={() => this.showModal()}
+                      onClick={() => this.toggleModal()}
                       className={classes.button}>
                       New comment
               </Button>
@@ -66,7 +62,7 @@ class CommentsList extends Component {
             { this.renderComment() }
           </FlipMove>
       <NewComment open={this.state.open}
-                  handleClose={this.handleClose}
+                  toggleModal={this.toggleModal}
                   postID={post}/>
       </Grid>
     );
@@ -83,4 +79,5 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default compose(withStyles(materialStyles), connect(mapStateToProps, null))(CommentsList);
+export default compose(withStyles(materialStyles),
+              connect(mapStateToProps, null))(CommentsList);
