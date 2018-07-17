@@ -95,7 +95,7 @@ class PostDetail extends Component  {
           <CardActions className='post-actions'>
             {/* Comments */}
             <Button size="small">
-              <span className='comment-count'>{commentsCount || 0 }</span>
+              <span className='comment-count'>{commentsCount || post.commentCount }</span>
               <span className='message-icon'>
                 <i className="material-icons">message</i>
               </span>
